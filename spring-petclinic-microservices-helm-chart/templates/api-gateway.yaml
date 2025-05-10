@@ -67,6 +67,7 @@ metadata:
   name: spring-petclinic-api-gateway-service
   namespace: {{ .Values.namespace }}
 spec:
+  type: NodePort
   selector:
     app: spring-petclinic-api-gateway-pod
   ports:
