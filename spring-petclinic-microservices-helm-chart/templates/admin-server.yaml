@@ -24,7 +24,7 @@ spec:
             - -c
             - >
               set -x;
-              while [[ "$(curl -s -o /dev/null -w ''%{http_code}'' http://spring-petclinic-config-server-service:8888)" != "200" ]]; do
+              while [[ "$(curl -s -o /dev/null -w ''%{http_code}'' {{ .Values.configServer.url }})" != "200" ]]; do
                 echo '.'
                 sleep 15;
               done
@@ -35,7 +35,7 @@ spec:
             - -c
             - >
               set -x;
-              while [[ "$(curl -s -o /dev/null -w ''%{http_code}'' http://spring-petclinic-discovery-server-service:8761)" != "200" ]]; do
+              while [[ "$(curl -s -o /dev/null -w ''%{http_code}'' {{ .Values.discoveryServer.url }})" != "200" ]]; do
                 echo '.'
                 sleep 15;
               done
@@ -47,9 +47,9 @@ spec:
             - containerPort: 9090
           env:
             - name: CONFIG_SERVER_URL
-              value: "http://spring-petclinic-config-server-service:8888"
+              value: "{{ .Values.configServer.url }}"
             - name: DISCOVERY_SERVER_URL
-              value: "http://spring-petclinic-discovery-server-service:8761/eureka/"
+              value: "{{ .Values.discoveryServer.url }}/eureka/"
 ---
 apiVersion: v1
 kind: Service
@@ -65,4 +65,23 @@ spec:
       protocol: TCP
       port: 9090
       targetPort: 9090
-      nodePort: 31081
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  annotations: {}
+  name: spring-petclinic.{{ .Values.namespace }}.admin-server.com
+  namespace: {{ .Values.namespace }}
+spec:
+  ingressClassName: nginx
+  rules:
+    - host: spring-petclinic.{{ .Values.namespace }}.admin-server.com
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: spring-petclinic-admin-server-service
+                port:
+                  number: 9090

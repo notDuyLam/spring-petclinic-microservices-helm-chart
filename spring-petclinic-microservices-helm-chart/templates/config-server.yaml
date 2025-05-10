@@ -46,12 +46,12 @@ apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
   annotations: {}
-  name: spring-petclinic.config-server.com
+  name: spring-petclinic.{{ .Values.namespace }}.config-server.com
   namespace: {{ .Values.namespace }}
 spec:
   ingressClassName: nginx
   rules:
-    - host: spring-petclinic.config-server.com
+    - host: spring-petclinic.{{ .Values.namespace }}.config-server.com
       http:
         paths:
           - path: /
