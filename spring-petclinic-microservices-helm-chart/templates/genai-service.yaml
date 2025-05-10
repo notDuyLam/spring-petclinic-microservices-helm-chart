@@ -1,20 +1,20 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: genai-service-deployment
+  name: {{ .Values.hostname.genaiService.name }}
   labels:
-    app: genai-service-deployment
+    app: {{ .Values.hostname.genaiService.name }}
   namespace: {{ .Values.namespace }}
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: genai-service-pod
+      app: {{ .Values.hostname.genaiService.name }}
   template:
     metadata:
-      name: genai-service-pod
+      name: {{ .Values.hostname.genaiService.name }}
       labels:
-        app: genai-service-pod
+        app: {{ .Values.hostname.genaiService.name }}
     spec:
       initContainers:
         - name: wait-for-config-server
@@ -40,9 +40,11 @@ spec:
                 sleep 15;
               done
       containers:
-        - name: genai-service-pod
+        - name: {{ .Values.hostname.genaiService.name }}
           image: "{{ .Values.images.genaiService.repository }}/{{ .Values.images.genaiService.name }}:{{ .Values.images.genaiService.tag }}"
-          imagePullPolicy: IfNotPresent
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 8084
           env:
             - name: OPENAI_API_KEY
               value: "None"
@@ -52,19 +54,19 @@ spec:
               value: "None"
             - name: CONFIG_SERVER_URL
               value: "{{ .Values.config.configServer.url }}"
-          ports:
-            - containerPort: 8084
+            - name: EUREKA_INSTANCE_HOSTNAME
+              value: "{{ .Values.hostname.genaiService.name }}"
 ---
 apiVersion: v1
 kind: Service
 metadata:
-  name: genai-service
+  name: {{ .Values.hostname.genaiService.name }}
   namespace: {{ .Values.namespace }}
 spec:
   selector:
-    app: genai-service-pod
+    app: {{ .Values.hostname.genaiService.name }}
   ports:
-    - name: genai-service-port
+    - name: {{ .Values.hostname.genaiService.name }}-port
       protocol: TCP
       port: 8084
       targetPort: 8084

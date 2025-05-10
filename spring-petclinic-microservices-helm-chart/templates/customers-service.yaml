@@ -1,20 +1,20 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: customers-service-deployment
+  name: {{ .Values.hostname.customersService.name }}
   labels:
-    app: customers-service-deployment
+    app: {{ .Values.hostname.customersService.name }}
   namespace: {{ .Values.namespace }}
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: customers-service-pod
+      app: {{ .Values.hostname.customersService.name }}
   template:
     metadata:
-      name: customers-service-pod
+      name: {{ .Values.hostname.customersService.name }}
       labels:
-        app: customers-service-pod
+        app: {{ .Values.hostname.customersService.name }}
     spec:
       initContainers:
         - name: wait-for-config-server
@@ -40,25 +40,27 @@ spec:
                 sleep 15;
               done
       containers:
-        - name: customers-service-pod
+        - name: {{ .Values.hostname.customersService.name }}
           image: "{{ .Values.images.customersService.repository }}/{{ .Values.images.customersService.name }}:{{ .Values.images.customersService.tag }}"
-          imagePullPolicy: IfNotPresent
+          imagePullPolicy: Always
           ports:
             - containerPort: 8081
           env:
             - name: CONFIG_SERVER_URL
               value: "{{ .Values.config.configServer.url }}"
+            - name: EUREKA_INSTANCE_HOSTNAME
+              value: "{{ .Values.hostname.customersService.name }}"
 ---
 apiVersion: v1
 kind: Service
 metadata:
-  name: customers-service
+  name: {{ .Values.hostname.customersService.name }}
   namespace: {{ .Values.namespace }}
 spec:
   selector:
-    app: customers-service-pod
+    app: {{ .Values.hostname.customersService.name }}
   ports:
-    - name: customers-service-port
+    - name: {{ .Values.hostname.customersService.name }}-port
       protocol: TCP
       port: 8081
       targetPort: 8081

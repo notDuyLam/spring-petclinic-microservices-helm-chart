@@ -1,20 +1,20 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: discovery-server-deployment
+  name: {{ .Values.hostname.discoveryServer.name }}
   labels:
-    app: discovery-server-deployment
+    app: {{ .Values.hostname.discoveryServer.name }}
   namespace: {{ .Values.namespace }}
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: discovery-server-pod
+      app: {{ .Values.hostname.discoveryServer.name }}
   template:
     metadata:
-      name: discovery-server-pod
+      name: {{ .Values.hostname.discoveryServer.name }}
       labels:
-        app: discovery-server-pod
+        app: {{ .Values.hostname.discoveryServer.name }}
     spec:
       initContainers:
         - name: wait-for-config-server
@@ -29,9 +29,9 @@ spec:
                 sleep 15;
               done
       containers:
-        - name: discovery-server-pod
+        - name: {{ .Values.hostname.discoveryServer.name }}
           image: "{{ .Values.images.discoveryServer.repository }}/{{ .Values.images.discoveryServer.name }}:{{ .Values.images.discoveryServer.tag }}"
-          imagePullPolicy: IfNotPresent
+          imagePullPolicy: Always
           ports:
             - containerPort: 8761
           env:
@@ -41,13 +41,13 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: discovery-server
+  name: {{ .Values.hostname.discoveryServer.name }}
   namespace: {{ .Values.namespace }}
 spec:
   selector:
-    app: discovery-server-pod
+    app: {{ .Values.hostname.discoveryServer.name }}
   ports:
-    - name: discovery-server-port
+    - name: {{ .Values.hostname.discoveryServer.name }}-port
       protocol: TCP
       port: 8761
       targetPort: 8761
@@ -56,18 +56,18 @@ apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
   annotations: {}
-  name: spring-petclinic.{{ .Values.namespace }}.discovery-server.com
+  name: spring-petclinic.{{ .Values.namespace }}.{{ .Values.hostname.discoveryServer.name }}.com
   namespace: {{ .Values.namespace }}
 spec:
   ingressClassName: nginx
   rules:
-    - host: spring-petclinic.{{ .Values.namespace }}.discovery-server.com
+    - host: spring-petclinic.{{ .Values.namespace }}.{{ .Values.hostname.discoveryServer.name }}.com
       http:
         paths:
           - path: /
             pathType: Prefix
             backend:
               service:
-                name: discovery-server
+                name: {{ .Values.hostname.discoveryServer.name }}
                 port:
                   number: 8761

@@ -19,7 +19,7 @@ spec:
       containers:
         - name: config-server-pod
           image: "{{ .Values.images.configServer.repository }}/{{ .Values.images.configServer.name }}:{{ .Values.images.configServer.tag }}"
-          imagePullPolicy: IfNotPresent
+          imagePullPolicy: Always
           ports:
             - containerPort: 8888
 ---

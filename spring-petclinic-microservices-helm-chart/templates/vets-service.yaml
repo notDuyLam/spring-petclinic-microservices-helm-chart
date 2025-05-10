@@ -1,20 +1,20 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: vets-service-deployment
+  name: {{ .Values.hostname.vetsService.name }}
   labels:
-    app: vets-service-deployment
+    app: {{ .Values.hostname.vetsService.name }}
   namespace: {{ .Values.namespace }}
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: vets-service-pod
+      app: {{ .Values.hostname.vetsService.name }}
   template:
     metadata:
-      name: vets-service-pod
+      name: {{ .Values.hostname.vetsService.name }}
       labels:
-        app: vets-service-pod
+        app: {{ .Values.hostname.vetsService.name }}
     spec:
       initContainers:
         - name: wait-for-config-server
@@ -40,25 +40,27 @@ spec:
                 sleep 15;
               done
       containers:
-        - name: vets-service-pod
+        - name: {{ .Values.hostname.vetsService.name }}
           image: "{{ .Values.images.vetsService.repository }}/{{ .Values.images.vetsService.name }}:{{ .Values.images.vetsService.tag }}"
-          imagePullPolicy: IfNotPresent
+          imagePullPolicy: Always
           ports:
             - containerPort: 8083
           env:
             - name: CONFIG_SERVER_URL
               value: "{{ .Values.config.configServer.url }}"
+            - name: EUREKA_INSTANCE_HOSTNAME
+              value: "{{ .Values.hostname.vetsService.name }}"
 ---
 apiVersion: v1
 kind: Service
 metadata:
-  name: vets-service
+  name: {{ .Values.hostname.vetsService.name }}
   namespace: {{ .Values.namespace }}
 spec:
   selector:
-    app: vets-service-pod
+    app: {{ .Values.hostname.vetsService.name }}
   ports:
-    - name: vets-service-port
+    - name: {{ .Values.hostname.vetsService.name }}-port
       protocol: TCP
       port: 8083
       targetPort: 8083

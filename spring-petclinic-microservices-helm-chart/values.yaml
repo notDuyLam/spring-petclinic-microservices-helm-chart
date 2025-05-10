@@ -39,3 +39,23 @@ config:
     url: http://discovery-server:8761
   configServer: 
     url: http://config-server:8888
+
+hostname:
+  genaiService:
+    name: genai-service
+  adminServer:
+    name: admin-server
+  customersService:
+    name: customers-service
+  vetsService:
+    name: vets-service
+  visitsService:
+    name: visits-service
+  apiGateway: 
+    name: api-gateway
+  discoveryServer:
+    name: discovery-server
+  configServer: 
+    name: config-server
+  tracingServer: 
+    name: tracing-server

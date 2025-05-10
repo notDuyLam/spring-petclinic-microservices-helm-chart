@@ -1,20 +1,20 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: api-gateway-deployment
+  name: {{ .Values.hostname.apiGateway.name }}
   labels:
-    app: api-gateway-deployment
+    app: {{ .Values.hostname.apiGateway.name }}
   namespace: {{ .Values.namespace }}
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: api-gateway-pod
+      app: {{ .Values.hostname.apiGateway.name }}
   template:
     metadata:
-      name: api-gateway-pod
+      name: {{ .Values.hostname.apiGateway.name }}
       labels:
-        app: api-gateway-pod
+        app: {{ .Values.hostname.apiGateway.name }}
     spec:
       initContainers:
         - name: wait-for-config-server
@@ -40,26 +40,28 @@ spec:
                 sleep 15;
               done
       containers:
-        - name: api-gateway-pod
+        - name: {{ .Values.hostname.apiGateway.name }}
           image: "{{ .Values.images.apiGateway.repository }}/{{ .Values.images.apiGateway.name }}:{{ .Values.images.apiGateway.tag }}"
-          imagePullPolicy: IfNotPresent
+          imagePullPolicy: Always
           ports:
             - containerPort: 8080
           env:
             - name: CONFIG_SERVER_URL
               value: "{{ .Values.config.configServer.url }}"
+            - name: EUREKA_INSTANCE_HOSTNAME
+              value: "{{ .Values.hostname.apiGateway.name }}"
 ---
 apiVersion: v1
 kind: Service
 metadata:
-  name: api-gateway
+  name: {{ .Values.hostname.apiGateway.name }}
   namespace: {{ .Values.namespace }}
 spec:
   type: NodePort
   selector:
-    app: api-gateway-pod
+    app: {{ .Values.hostname.apiGateway.name }}
   ports:
-    - name: api-gateway-port
+    - name: {{ .Values.hostname.apiGateway.name }}-port
       protocol: TCP
       port: 8080
       targetPort: 8080
@@ -68,18 +70,18 @@ apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
   annotations: {}
-  name: spring-petclinic.{{ .Values.namespace }}.api-gateway.com
+  name: spring-petclinic.{{ .Values.namespace }}.{{ .Values.hostname.apiGateway.name }}.com
   namespace: {{ .Values.namespace }}
 spec:
   ingressClassName: nginx
   rules:
-    - host: spring-petclinic.{{ .Values.namespace }}.api-gateway.com
+    - host: spring-petclinic.{{ .Values.namespace }}.{{ .Values.hostname.apiGateway.name }}.com
       http:
         paths:
           - path: /
             pathType: Prefix
             backend:
               service:
-                name: api-gateway
+                name: {{ .Values.hostname.apiGateway.name }}
                 port:
                   number: 8080
