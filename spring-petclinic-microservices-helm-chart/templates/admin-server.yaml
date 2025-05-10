@@ -1,20 +1,20 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: spring-petclinic-admin-server-deployment
+  name: admin-server-deployment
   labels:
-    app: spring-petclinic-admin-server-deployment
+    app: admin-server-deployment
   namespace: {{ .Values.namespace }}
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: spring-petclinic-admin-server-pod
+      app: admin-server-pod
   template:
     metadata:
-      name: spring-petclinic-admin-server-pod
+      name: admin-server-pod
       labels:
-        app: spring-petclinic-admin-server-pod
+        app: admin-server-pod
     spec:
       initContainers:
         - name: wait-for-config-server
@@ -40,7 +40,7 @@ spec:
                 sleep 15;
               done
       containers:
-        - name: spring-petclinic-admin-server-pod
+        - name: admin-server-pod
           image: "{{ .Values.images.adminServer.repository }}/{{ .Values.images.adminServer.name }}:{{ .Values.images.adminServer.tag }}"
           imagePullPolicy: IfNotPresent
           ports:
@@ -48,20 +48,18 @@ spec:
           env:
             - name: CONFIG_SERVER_URL
               value: "{{ .Values.config.configServer.url }}"
-            - name: DISCOVERY_SERVER_URL
-              value: "{{ .Values.config.discoveryServer.url }}/eureka/"
 ---
 apiVersion: v1
 kind: Service
 metadata:
-  name: spring-petclinic-admin-server-service
+  name: admin-server
   namespace: {{ .Values.namespace }}
 spec:
   type: NodePort
   selector:
-    app: spring-petclinic-admin-server-pod
+    app: admin-server-pod
   ports:
-    - name: spring-petclinic-admin-server-port
+    - name: admin-server-port
       protocol: TCP
       port: 9090
       targetPort: 9090
@@ -82,6 +80,6 @@ spec:
             pathType: Prefix
             backend:
               service:
-                name: spring-petclinic-admin-server-service
+                name: admin-server
                 port:
                   number: 9090

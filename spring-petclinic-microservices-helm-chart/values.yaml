@@ -35,17 +35,7 @@ images:
     tag: latest
 
 config:
-  genaiService:
-    uri: http://spring-petclinic-genai-service-service:8084
-  customersService:
-    uri: http://spring-petclinic-customers-service-service:8081
-  vetsService:
-    uri: http://spring-petclinic-vets-service-service:8083
-  visitsService:
-    uri: http://spring-petclinic-visits-service-service:8082
   discoveryServer:
-    url: http://spring-petclinic-discovery-server-service:8761
+    url: http://discovery-server:8761
   configServer: 
-    url: http://spring-petclinic-config-server-service:8888
-  tracingServer:
-    url: http://spring-petclinic-tracing-server-service:9411/api/v2/spans
+    url: http://config-server:8888

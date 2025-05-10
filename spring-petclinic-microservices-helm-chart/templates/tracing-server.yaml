@@ -1,20 +1,20 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: spring-petclinic-tracing-server-deployment
+  name: tracing-server-deployment
   labels:
-    app: spring-petclinic-tracing-server-deployment
+    app: tracing-server-deployment
   namespace: {{ .Values.namespace }}
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: spring-petclinic-tracing-server-pod
+      app: tracing-server-pod
   template:
     metadata:
-      name: spring-petclinic-tracing-server-pod
+      name: tracing-server-pod
       labels:
-        app: spring-petclinic-tracing-server-pod
+        app: tracing-server-pod
     spec:
       initContainers:
         - name: wait-for-config-server
@@ -40,7 +40,7 @@ spec:
                 sleep 15;
               done
       containers:
-        - name: spring-petclinic-tracing-server-pod
+        - name: tracing-server-pod
           image: openzipkin/zipkin
           imagePullPolicy: IfNotPresent
           ports:
@@ -48,19 +48,17 @@ spec:
           env:
             - name: CONFIG_SERVER_URL
               value: "{{ .Values.config.configServer.url }}"
-            - name: DISCOVERY_SERVER_URL
-              value: "{{ .Values.config.discoveryServer.url }}/eureka/"
 ---
 apiVersion: v1
 kind: Service
 metadata:
-  name: spring-petclinic-tracing-server-service
+  name: tracing-server
   namespace: {{ .Values.namespace }}
 spec:
   selector:
-    app: spring-petclinic-tracing-server-pod
+    app: tracing-server-pod
   ports:
-    - name: spring-petclinic-tracing-server-port
+    - name: tracing-server-port
       protocol: TCP
       port: 9411
       targetPort: 9411
@@ -81,6 +79,6 @@ spec:
             pathType: Prefix
             backend:
               service:
-                name: spring-petclinic-tracing-server-service
+                name: tracing-server
                 port:
                   number: 9411

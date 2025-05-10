@@ -1,20 +1,20 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: spring-petclinic-visits-service-deployment
+  name: visits-service-deployment
   labels:
-    app: spring-petclinic-visits-service-deployment
+    app: visits-service-deployment
   namespace: {{ .Values.namespace }}
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: spring-petclinic-visits-service-pod
+      app: visits-service-pod
   template:
     metadata:
-      name: spring-petclinic-visits-service-pod
+      name: visits-service-pod
       labels:
-        app: spring-petclinic-visits-service-pod
+        app: visits-service-pod
     spec:
       initContainers:
         - name: wait-for-config-server
@@ -40,7 +40,7 @@ spec:
                 sleep 15;
               done
       containers:
-        - name: spring-petclinic-visits-service-pod
+        - name: visits-service-pod
           image: "{{ .Values.images.visitsService.repository }}/{{ .Values.images.visitsService.name }}:{{ .Values.images.visitsService.tag }}"
           imagePullPolicy: IfNotPresent
           ports:
@@ -48,21 +48,17 @@ spec:
           env:
             - name: CONFIG_SERVER_URL
               value: "{{ .Values.config.configServer.url }}"
-            - name: DISCOVERY_SERVER_URL
-              value: "{{ .Values.config.discoveryServer.url }}/eureka/"
-            - name: TRACING_SERVER_URL
-              value: "{{ .Values.config.tracingServer.url }}"
 ---
 apiVersion: v1
 kind: Service
 metadata:
-  name: spring-petclinic-visits-service-service
+  name: visits-service
   namespace: {{ .Values.namespace }}
 spec:
   selector:
-    app: spring-petclinic-visits-service-pod
+    app: visits-service-pod
   ports:
-    - name: spring-petclinic-visits-service-port
+    - name: visits-service-port
       protocol: TCP
       port: 8082
       targetPort: 8082

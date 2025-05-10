@@ -1,43 +1,38 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: spring-petclinic-config-server-deployment
+  name: config-server-deployment
   labels:
-    app: spring-petclinic-config-server-deployment
+    app: config-server-deployment
   namespace: {{ .Values.namespace }}
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: spring-petclinic-config-server-pod
+      app: config-server-pod
   template:
     metadata:
-      name: spring-petclinic-config-server-pod
+      name: config-server-pod
       labels:
-        app: spring-petclinic-config-server-pod
+        app: config-server-pod
     spec:
       containers:
-        - name: spring-petclinic-config-server-pod
+        - name: config-server-pod
           image: "{{ .Values.images.configServer.repository }}/{{ .Values.images.configServer.name }}:{{ .Values.images.configServer.tag }}"
           imagePullPolicy: IfNotPresent
           ports:
             - containerPort: 8888
-          env:
-            - name: DISCOVERY_SERVER_URL
-              value: "{{ .Values.config.discoveryServer.url }}/eureka/"
-            - name: TRACING_SERVER_URL
-              value: "{{ .Values.config.tracingServer.url }}"
 ---
 apiVersion: v1
 kind: Service
 metadata:
-  name: spring-petclinic-config-server-service
+  name: config-server
   namespace: {{ .Values.namespace }}
 spec:
   selector:
-    app: spring-petclinic-config-server-pod
+    app: config-server-pod
   ports:
-    - name: spring-petclinic-config-server-port
+    - name: config-server-port
       protocol: TCP
       port: 8888
       targetPort: 8888
@@ -58,6 +53,6 @@ spec:
             pathType: Prefix
             backend:
               service:
-                name: spring-petclinic-config-server-service
+                name: config-server
                 port:
                   number: 8888

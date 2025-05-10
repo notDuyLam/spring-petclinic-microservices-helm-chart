@@ -1,20 +1,20 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: spring-petclinic-genai-service-deployment
+  name: genai-service-deployment
   labels:
-    app: spring-petclinic-genai-service-deployment
+    app: genai-service-deployment
   namespace: {{ .Values.namespace }}
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: spring-petclinic-genai-service-pod
+      app: genai-service-pod
   template:
     metadata:
-      name: spring-petclinic-genai-service-pod
+      name: genai-service-pod
       labels:
-        app: spring-petclinic-genai-service-pod
+        app: genai-service-pod
     spec:
       initContainers:
         - name: wait-for-config-server
@@ -40,7 +40,7 @@ spec:
                 sleep 15;
               done
       containers:
-        - name: spring-petclinic-genai-service-pod
+        - name: genai-service-pod
           image: "{{ .Values.images.genaiService.repository }}/{{ .Values.images.genaiService.name }}:{{ .Values.images.genaiService.tag }}"
           imagePullPolicy: IfNotPresent
           env:
@@ -52,23 +52,19 @@ spec:
               value: "None"
             - name: CONFIG_SERVER_URL
               value: "{{ .Values.config.configServer.url }}"
-            - name: DISCOVERY_SERVER_URL
-              value: "{{ .Values.config.discoveryServer.url }}/eureka/"
-            - name: TRACING_SERVER_URL
-              value: "{{ .Values.config.tracingServer.url }}"
           ports:
             - containerPort: 8084
 ---
 apiVersion: v1
 kind: Service
 metadata:
-  name: spring-petclinic-genai-service-service
+  name: genai-service
   namespace: {{ .Values.namespace }}
 spec:
   selector:
-    app: spring-petclinic-genai-service-pod
+    app: genai-service-pod
   ports:
-    - name: spring-petclinic-genai-service-port
+    - name: genai-service-port
       protocol: TCP
       port: 8084
       targetPort: 8084
