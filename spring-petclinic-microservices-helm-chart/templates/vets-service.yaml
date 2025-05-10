@@ -49,7 +49,7 @@ spec:
             - name: CONFIG_SERVER_URL
               value: "{{ .Values.config.configServer.url }}"
             - name: DISCOVERY_SERVER_URL
-              value: "{{ .Values.discoveryServer.url }}/eureka/"
+              value: "{{ .Values.config.discoveryServer.url }}/eureka/"
             - name: TRACING_SERVER_URL
               value: "{{ .Values.config.tracingServer.url }}"
 ---
