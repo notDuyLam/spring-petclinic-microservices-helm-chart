@@ -1,23 +1,23 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: config-server-deployment
+  name: {{ .Values.hostname.configServer.name }}
   labels:
-    app: config-server-deployment
+    app: {{ .Values.hostname.configServer.name }}
   namespace: {{ .Values.namespace }}
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: config-server-pod
+      app: {{ .Values.hostname.configServer.name }}
   template:
     metadata:
-      name: config-server-pod
+      name: {{ .Values.hostname.configServer.name }}
       labels:
-        app: config-server-pod
+        app: {{ .Values.hostname.configServer.name }}
     spec:
       containers:
-        - name: config-server-pod
+        - name: {{ .Values.hostname.configServer.name }}
           image: "{{ .Values.images.configServer.repository }}/{{ .Values.images.configServer.name }}:{{ .Values.images.configServer.tag }}"
           imagePullPolicy: Always
           ports:
@@ -26,13 +26,13 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: config-server
+  name: {{ .Values.hostname.configServer.name }}
   namespace: {{ .Values.namespace }}
 spec:
   selector:
-    app: config-server-pod
+    app: {{ .Values.hostname.configServer.name }}
   ports:
-    - name: config-server-port
+    - name: {{ .Values.hostname.configServer.name }}-port
       protocol: TCP
       port: 8888
       targetPort: 8888
@@ -41,18 +41,18 @@ apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
   annotations: {}
-  name: spring-petclinic.{{ .Values.namespace }}.config-server.com
+  name: spring-petclinic.{{ .Values.namespace }}.{{ .Values.hostname.configServer.name }}.com
   namespace: {{ .Values.namespace }}
 spec:
   ingressClassName: nginx
   rules:
-    - host: spring-petclinic.{{ .Values.namespace }}.config-server.com
+    - host: spring-petclinic.{{ .Values.namespace }}.{{ .Values.hostname.configServer.name }}.com
       http:
         paths:
           - path: /
             pathType: Prefix
             backend:
               service:
-                name: config-server
+                name: {{ .Values.hostname.configServer.name }}
                 port:
                   number: 8888
