@@ -24,9 +24,9 @@ spec:
             - containerPort: 8888
           env:
             - name: DISCOVERY_SERVER_URL
-              value: "http://spring-petclinic-discovery-server-service:8761/eureka/"
+              value: "{{ .Values.config.discoveryServer.url }}/eureka/"
             - name: TRACING_SERVER_URL
-              value: "http://spring-petclinic-tracing-server-service:9411/api/v2/spans"
+              value: "{{ .Values.config.tracingServer.url }}"
 ---
 apiVersion: v1
 kind: Service

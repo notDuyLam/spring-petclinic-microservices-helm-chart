@@ -24,7 +24,7 @@ spec:
             - -c
             - >
               set -x;
-              while [[ "$(curl -s -o /dev/null -w ''%{http_code}'' {{ .Values.configServer.url }})" != "200" ]]; do
+              while [[ "$(curl -s -o /dev/null -w ''%{http_code}'' {{ .Values.config.configServer.url }})" != "200" ]]; do
                 echo '.'
                 sleep 15;
               done
@@ -35,7 +35,7 @@ spec:
             - -c
             - >
               set -x;
-              while [[ "$(curl -s -o /dev/null -w ''%{http_code}'' {{ .Values.discoveryServer.url }})" != "200" ]]; do
+              while [[ "$(curl -s -o /dev/null -w ''%{http_code}'' {{ .Values.config.discoveryServer.url }})" != "200" ]]; do
                 echo '.'
                 sleep 15;
               done
@@ -51,11 +51,11 @@ spec:
             - name: AZURE_OPENAI_ENDPOINT
               value: "None"
             - name: CONFIG_SERVER_URL
-              value: "{{ .Values.configServer.url }}"
+              value: "{{ .Values.config.configServer.url }}"
             - name: DISCOVERY_SERVER_URL
-              value: "{{ .Values.discoveryServer.url }}/eureka/"
+              value: "{{ .Values.config.discoveryServer.url }}/eureka/"
             - name: TRACING_SERVER_URL
-              value: "{{ .Values.tracingServer.url }}"
+              value: "{{ .Values.config.tracingServer.url }}"
           ports:
             - containerPort: 8084
 ---
