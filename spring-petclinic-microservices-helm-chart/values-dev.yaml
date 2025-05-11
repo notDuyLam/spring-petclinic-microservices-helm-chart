@@ -21,7 +21,7 @@ images:
   visitsService:
     repository: tienminhktvn2
     name: spring-petclinic-visits-service
-    tag: 6be60311
+    tag: db86d83d
   apiGateway: 
     repository: tienminhktvn2
     name: spring-petclinic-api-gateway
