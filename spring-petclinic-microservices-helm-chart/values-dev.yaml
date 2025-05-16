@@ -13,7 +13,7 @@ images:
   customersService:
     repository: tienminhktvn2
     name: spring-petclinic-customers-service
-    tag: latest
+    tag: fa844482
   vetsService:
     repository: tienminhktvn2
     name: spring-petclinic-vets-service
@@ -21,7 +21,7 @@ images:
   visitsService:
     repository: tienminhktvn2
     name: spring-petclinic-visits-service
-    tag: db86d83d
+    tag: latest
   apiGateway: 
     repository: tienminhktvn2
     name: spring-petclinic-api-gateway
