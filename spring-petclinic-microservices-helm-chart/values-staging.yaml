@@ -1,1 +1,62 @@
 namespace: staging
+
+
+images:
+  genaiService:
+    repository: tienminhktvn2
+    name: spring-petclinic-genai-service
+    tag: latest
+  adminServer:
+    repository: tienminhktvn2
+    name: spring-petclinic-admin-server
+    tag: latest
+  customersService:
+    repository: tienminhktvn2
+    name: spring-petclinic-customers-service
+    tag: v1.4
+  vetsService:
+    repository: tienminhktvn2
+    name: spring-petclinic-vets-service
+    tag: latest
+  visitsService:
+    repository: tienminhktvn2
+    name: spring-petclinic-visits-service
+    tag: latest
+  apiGateway: 
+    repository: tienminhktvn2
+    name: spring-petclinic-api-gateway
+    tag: latest
+  discoveryServer:
+    repository: tienminhktvn2
+    name: spring-petclinic-discovery-server
+    tag: latest
+  configServer: 
+    repository: tienminhktvn2
+    name: spring-petclinic-config-server
+    tag: latest
+
+config:
+  discoveryServer:
+    url: http://discovery-server:8761
+  configServer: 
+    url: http://config-server:8888
+
+hostname:
+  genaiService:
+    name: genai-service
+  adminServer:
+    name: admin-server
+  customersService:
+    name: customers-service
+  vetsService:
+    name: vets-service
+  visitsService:
+    name: visits-service
+  apiGateway: 
+    name: api-gateway
+  discoveryServer:
+    name: discovery-server
+  configServer: 
+    name: config-server
+  tracingServer: 
+    name: tracing-server
