@@ -11,7 +11,7 @@ images:
   vetsService:
     tag: dev
   visitsService:
-    tag: af3eb2b4
+    tag: dev
   apiGateway: 
     tag: dev
   discoveryServer:
