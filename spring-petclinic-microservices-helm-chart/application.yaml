@@ -22,6 +22,7 @@ spec:
           vets-service=tienminhktvn2/spring-petclinic-vets-service,
           visits-service=tienminhktvn2/spring-petclinic-visits-service,
           gen-ai=tienminhktvn2/spring-petclinic-gen-ai
+        argocd-image-updater.argoproj.io/update-strategy: digest
         argocd-image-updater.argoproj.io/filter-tags: 'dev'
         argocd-image-updater.argoproj.io/update-interval: '30s'
         argocd.argoproj.io/refresh: '30s'
