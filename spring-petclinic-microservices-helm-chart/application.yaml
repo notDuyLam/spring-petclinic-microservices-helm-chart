@@ -1,0 +1,46 @@
+apiVersion: argoproj.io/v1alpha1
+kind: ApplicationSet
+metadata:
+  name: spring-petclinic
+  namespace: argocd
+spec:
+  generators:
+    - list:
+        elements:
+          - name: dev
+            valuesFile: values-dev.yaml
+          - name: staging
+            valuesFile: values-staging.yaml
+
+  template:
+    metadata:
+      name: "spring-petclinic-{{name}}"
+      annotations:
+        argocd-image-updater.argoproj.io/container-list: >
+          api-gateway= tienminhktvn2/spring-petclinic-genai-service,
+          customers-service= tienminhktvn2/spring-petclinic-customers-service,
+          vets-service= tienminhktvn2/spring-petclinic-vets-service,
+          visits-service= tienminhktvn2/spring-petclinic-visits-service,
+          gen-ai= tienminhktvn2/spring-petclinic-gen-ai
+        argocd-image-updater.argoproj.io/filter-tags: '^dev$'
+    spec:
+      project: default
+
+      source:
+        repoURL: https://github.com/22120207/spring-petclinic-microservices-helm-chart
+        targetRevision: HEAD
+        path: .
+        helm:
+          valueFiles:
+            - "{{valuesFile}}"
+
+      destination:
+        server: https://kubernetes.default.svc
+        namespace: "{{name}}"
+
+      syncPolicy:
+        automated:
+          prune: true
+          selfHeal: true
+        syncOptions:
+          - CreateNamespace=true

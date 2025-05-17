@@ -3,60 +3,18 @@ namespace: dev
 
 images:
   genaiService:
-    repository: tienminhktvn2
-    name: spring-petclinic-genai-service
-    tag: latest
+    tag: dev
   adminServer:
-    repository: tienminhktvn2
-    name: spring-petclinic-admin-server
-    tag: latest
+    tag: dev
   customersService:
-    repository: tienminhktvn2
-    name: spring-petclinic-customers-service
-    tag: latest
+    tag: dev
   vetsService:
-    repository: tienminhktvn2
-    name: spring-petclinic-vets-service
-    tag: latest
+    tag: dev
   visitsService:
-    repository: tienminhktvn2
-    name: spring-petclinic-visits-service
     tag: af3eb2b4
   apiGateway: 
-    repository: tienminhktvn2
-    name: spring-petclinic-api-gateway
-    tag: latest
+    tag: dev
   discoveryServer:
-    repository: tienminhktvn2
-    name: spring-petclinic-discovery-server
-    tag: latest
+    tag: dev
   configServer: 
-    repository: tienminhktvn2
-    name: spring-petclinic-config-server
-    tag: latest
-
-config:
-  discoveryServer:
-    url: http://discovery-server:8761
-  configServer: 
-    url: http://config-server:8888
-
-hostname:
-  genaiService:
-    name: genai-service
-  adminServer:
-    name: admin-server
-  customersService:
-    name: customers-service
-  vetsService:
-    name: vets-service
-  visitsService:
-    name: visits-service
-  apiGateway: 
-    name: api-gateway
-  discoveryServer:
-    name: discovery-server
-  configServer: 
-    name: config-server
-  tracingServer: 
-    name: tracing-server
+    tag: dev
