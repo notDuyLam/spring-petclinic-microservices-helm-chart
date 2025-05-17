@@ -32,7 +32,7 @@ spec:
       source:
         repoURL: https://github.com/22120207/spring-petclinic-microservices-helm-chart
         targetRevision: HEAD
-        path: .
+        path: spring-petclinic-microservices-helm-chart
         helm:
           valueFiles:
             - '{{valuesFile}}'
