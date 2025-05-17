@@ -14,17 +14,18 @@ spec:
 
   template:
     metadata:
-      name: "spring-petclinic-{{name}}"
+      name: spring-petclinic-{{name}}
       annotations:
-        argocd-image-updater.argoproj.io/container-list: >
-          api-gateway= tienminhktvn2/spring-petclinic-genai-service,
-          customers-service= tienminhktvn2/spring-petclinic-customers-service,
-          vets-service= tienminhktvn2/spring-petclinic-vets-service,
-          visits-service= tienminhktvn2/spring-petclinic-visits-service,
-          gen-ai= tienminhktvn2/spring-petclinic-gen-ai
-        argocd-image-updater.argoproj.io/filter-tags: '^dev$'
-        argocd-image-updater.argoproj.io/update-interval: "30s"
-        argocd.argoproj.io/refresh: "30s"
+        argocd-image-updater.argoproj.io/container-list: |
+          api-gateway=tienminhktvn2/spring-petclinic-api-gateway,
+          customers-service=tienminhktvn2/spring-petclinic-customers-service,
+          vets-service=tienminhktvn2/spring-petclinic-vets-service,
+          visits-service=tienminhktvn2/spring-petclinic-visits-service,
+          gen-ai=tienminhktvn2/spring-petclinic-gen-ai
+        argocd-image-updater.argoproj.io/filter-tags: 'dev'
+        argocd-image-updater.argoproj.io/update-interval: '30s'
+        argocd.argoproj.io/refresh: '30s'
+
     spec:
       project: default
 
@@ -34,11 +35,11 @@ spec:
         path: .
         helm:
           valueFiles:
-            - "{{valuesFile}}"
+            - '{{valuesFile}}'
 
       destination:
         server: https://kubernetes.default.svc
-        namespace: "{{name}}"
+        namespace: '{{name}}'
 
       syncPolicy:
         automated:
