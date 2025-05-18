@@ -26,6 +26,9 @@ images:
     repository: tienminhktvn2/spring-petclinic-config-server
     tag: latest
 
+imagePullSecrets:
+  name: dockerhub-cred
+
 config:
   discoveryServer:
     url: http://discovery-server:8761

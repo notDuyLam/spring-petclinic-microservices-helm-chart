@@ -16,6 +16,8 @@ spec:
       labels:
         app: {{ .Values.hostname.visitsService.name }}
     spec:
+      imagePullSecrets:
+        - name: {{ .Values.imagePullSecrets.name }}
       initContainers:
         - name: wait-for-config-server
           image: darthcabs/tiny-tools:1
