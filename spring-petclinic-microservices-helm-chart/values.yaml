@@ -23,7 +23,7 @@ images:
     repository: tienminhktvn2/spring-petclinic-discovery-server
     tag: latest
   configServer: 
-    repository: tienminhktvn2/spring-petclinic-config-server
+    repository: "tienminhktvn2/spring-petclinic-config-server"
     tag: latest
 
 config:
