@@ -18,7 +18,7 @@ spec:
     spec:
       containers:
         - name: {{ .Values.hostname.configServer.name }}
-          image: "{{ .Values.images.configServer.repository }:{{ .Values.images.configServer.tag }}"
+          image: "{{ .Values.images.configServer.repository }}:{{ .Values.images.configServer.tag }}"
           imagePullPolicy: Always
           ports:
             - containerPort: 8888
