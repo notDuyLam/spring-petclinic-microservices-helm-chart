@@ -41,7 +41,7 @@ spec:
               done
       containers:
         - name: {{ .Values.hostname.adminServer.name }}
-          image: "{{ .Values.images.adminServer.repository }}/{{ .Values.images.adminServer.name }}:{{ .Values.images.adminServer.tag }}"
+          image: "{{ .Values.images.adminServer.repository }}:{{ .Values.images.adminServer.tag }}"
           imagePullPolicy: Always
           ports:
             - containerPort: 9090

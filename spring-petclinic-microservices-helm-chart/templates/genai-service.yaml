@@ -41,7 +41,7 @@ spec:
               done
       containers:
         - name: {{ .Values.hostname.genaiService.name }}
-          image: "{{ .Values.images.genaiService.repository }}/{{ .Values.images.genaiService.name }}:{{ .Values.images.genaiService.tag }}"
+          image: "{{ .Values.images.genaiService.repository }}:{{ .Values.images.genaiService.tag }}"
           imagePullPolicy: Always
           ports:
             - containerPort: 8084

@@ -41,7 +41,7 @@ spec:
               done
       containers:
         - name: {{ .Values.hostname.customersService.name }}
-          image: "{{ .Values.images.customersService.repository }}/{{ .Values.images.customersService.name }}:{{ .Values.images.customersService.tag }}"
+          image: "{{ .Values.images.customersService.repository }}:{{ .Values.images.customersService.tag }}"
           imagePullPolicy: Always
           ports:
             - containerPort: 8081

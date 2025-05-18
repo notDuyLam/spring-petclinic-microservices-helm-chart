@@ -30,7 +30,7 @@ spec:
               done
       containers:
         - name: {{ .Values.hostname.discoveryServer.name }}
-          image: "{{ .Values.images.discoveryServer.repository }}/{{ .Values.images.discoveryServer.name }}:{{ .Values.images.discoveryServer.tag }}"
+          image: "{{ .Values.images.discoveryServer.repository }}:{{ .Values.images.discoveryServer.tag }}"
           imagePullPolicy: Always
           ports:
             - containerPort: 8761

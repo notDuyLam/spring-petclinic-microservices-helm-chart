@@ -1,0 +1,49 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: spring-petclinic-dev
+  namespace: argocd
+  annotations:
+    argocd-image-updater.argoproj.io/image-list: |
+      customersService=tienminhktvn2/spring-petclinic-customers-service:dev,
+      vetsService=tienminhktvn2/spring-petclinic-vets-service:dev,
+      visitsService=tienminhktvn2/spring-petclinic-visits-service:dev,
+      apiGateway=tienminhktvn2/spring-petclinic-api-gateway:dev
+
+    argocd-image-updater.argoproj.io/customersService.update-strategy: digest
+    argocd-image-updater.argoproj.io/vetsService.update-strategy: digest
+    argocd-image-updater.argoproj.io/visitsService.update-strategy: digest
+    argocd-image-updater.argoproj.io/apiGateway.update-strategy: digest
+    
+    argocd-image-updater.argoproj.io/customersService.helm.image-name: images.customersService.repository
+    argocd-image-updater.argoproj.io/customersService.helm.image-tag: images.customersService.tag
+
+    argocd-image-updater.argoproj.io/vetsService.helm.image-name: images.vetsService.repository
+    argocd-image-updater.argoproj.io/vetsService.helm.image-tag: images.vetsService.tag
+
+    argocd-image-updater.argoproj.io/visitsService.helm.image-name: images.visitsService.repository
+    argocd-image-updater.argoproj.io/visitsService.helm.image-tag: images.visitsService.tag
+
+    argocd-image-updater.argoproj.io/apiGateway.helm.image-name: images.apiGateway.repository
+    argocd-image-updater.argoproj.io/apiGateway.helm.image-tag: images.apiGateway.tag
+
+    argocd-image-updater.argoproj.io/update-interval: '30s'
+    argocd.argoproj.io/refresh: '30s'
+spec:
+  project: default
+  source:
+    repoURL: https://github.com/22120207/spring-petclinic-microservices-helm-chart
+    targetRevision: HEAD
+    path: spring-petclinic-microservices-helm-chart
+    helm:
+      valueFiles:
+        - values-dev.yaml
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: spring-petclinic
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true

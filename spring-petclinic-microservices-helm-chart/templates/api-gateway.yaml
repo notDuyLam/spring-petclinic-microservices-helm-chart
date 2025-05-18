@@ -41,7 +41,7 @@ spec:
               done
       containers:
         - name: {{ .Values.hostname.apiGateway.name }}
-          image: "{{ .Values.images.apiGateway.repository }}/{{ .Values.images.apiGateway.name }}:{{ .Values.images.apiGateway.tag }}"
+          image: "{{ .Values.images.apiGateway.repository }}:{{ .Values.images.apiGateway.tag }}"
           imagePullPolicy: Always
           ports:
             - containerPort: 8080

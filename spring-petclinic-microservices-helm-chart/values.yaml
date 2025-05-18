@@ -2,36 +2,28 @@ namespace: spring-petclinic
 
 images:
   genaiService:
-    repository: tienminhktvn2
-    name: spring-petclinic-genai-service
+    repository: tienminhktvn2/spring-petclinic-genai-service
     tag: latest
   adminServer:
-    repository: tienminhktvn2
-    name: spring-petclinic-admin-server
+    repository: tienminhktvn2/spring-petclinic-admin-server
     tag: latest
   customersService:
-    repository: tienminhktvn2
-    name: spring-petclinic-customers-service
+    repository: tienminhktvn2/spring-petclinic-customers-service
     tag: latest
   vetsService:
-    repository: tienminhktvn2
-    name: spring-petclinic-vets-service
+    repository: tienminhktvn2/spring-petclinic-vets-service
     tag: latest
   visitsService:
-    repository: tienminhktvn2
-    name: spring-petclinic-visits-service
+    repository: tienminhktvn2/spring-petclinic-visits-service
     tag: latest
   apiGateway: 
-    repository: tienminhktvn2
-    name: spring-petclinic-api-gateway
+    repository: tienminhktvn2/spring-petclinic-api-gateway
     tag: latest
   discoveryServer:
-    repository: tienminhktvn2
-    name: spring-petclinic-discovery-server
+    repository: tienminhktvn2/spring-petclinic-discovery-server
     tag: latest
   configServer: 
-    repository: tienminhktvn2
-    name: spring-petclinic-config-server
+    repository: tienminhktvn2/spring-petclinic-config-server
     tag: latest
 
 config:
