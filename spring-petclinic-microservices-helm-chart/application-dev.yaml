@@ -26,9 +26,6 @@ metadata:
 
     argocd-image-updater.argoproj.io/apiGateway.helm.image-name: images.apiGateway.repository
     argocd-image-updater.argoproj.io/apiGateway.helm.image-tag: images.apiGateway.tag
-
-    argocd-image-updater.argoproj.io/update-interval: '30s'
-    argocd.argoproj.io/refresh: '30s'
 spec:
   project: default
   source:
