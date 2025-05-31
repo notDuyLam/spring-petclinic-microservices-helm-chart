@@ -24,7 +24,7 @@ images:
     repository: registry.caotienminh.software/springcommunity/spring-petclinic-config-server
     tag: latest
   tracingServer:
-    repository: registry.caotienminh.software/springcommunity/openzipkin_zipkin
+    repository: registry.caotienminh.software/springcommunity/zipkin-server
     tag: latest
   prometheusServer:
     repository: registry.caotienminh.software/springcommunity/prometheus-server
