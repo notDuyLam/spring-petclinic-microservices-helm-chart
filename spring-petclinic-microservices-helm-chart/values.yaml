@@ -27,7 +27,7 @@ images:
     repository: registry.caotienminh.software/springcommunity/openzipkin_zipkin
     tag: latest
   prometheusServer:
-    repository: registry.caotienminh.software/springcommunity/prometheus
+    repository: registry.caotienminh.software/springcommunity/prometheus-server
     tag: latest
 
 imagePullSecrets:
