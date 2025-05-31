@@ -42,7 +42,7 @@ apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
   annotations: {}
-  name: spring-petclinic.{{ .Values.namespace }}.{{ .Values.hostname.tracingServer.name }}.com
+  name: spring-petclinic.{{ .Values.namespace }}.{{ .Values.hostname.grafanaServer.name }}.com
   namespace: {{ .Values.namespace }}
 spec:
   ingressClassName: nginx
