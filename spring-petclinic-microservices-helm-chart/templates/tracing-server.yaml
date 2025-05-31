@@ -55,6 +55,7 @@ metadata:
   name: {{ .Values.hostname.tracingServer.name }}
   namespace: {{ .Values.namespace }}
 spec:
+  type: NodePort
   selector:
     app: {{ .Values.hostname.tracingServer.name }}
   ports:
