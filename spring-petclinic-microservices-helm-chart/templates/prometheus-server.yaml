@@ -37,23 +37,3 @@ spec:
       protocol: TCP
       port: 9091
       targetPort: 9090
----
-apiVersion: networking.k8s.io/v1
-kind: Ingress
-metadata:
-  annotations: {}
-  name: spring-petclinic.{{ .Values.namespace }}.{{ .Values.hostname.prometheusServer.name }}.com
-  namespace: {{ .Values.namespace }}
-spec:
-  ingressClassName: nginx
-  rules:
-    - host: spring-petclinic.{{ .Values.namespace }}.{{ .Values.hostname.prometheusServer.name }}.com
-      http:
-        paths:
-          - path: /
-            pathType: Prefix
-            backend:
-              service:
-                name: {{ .Values.hostname.prometheusServer.name }}
-                port:
-                  number: 9091

@@ -37,23 +37,3 @@ spec:
       protocol: TCP
       port: 3030
       targetPort: 3000
----
-apiVersion: networking.k8s.io/v1
-kind: Ingress
-metadata:
-  annotations: {}
-  name: spring-petclinic.{{ .Values.namespace }}.{{ .Values.hostname.grafanaServer.name }}.com
-  namespace: {{ .Values.namespace }}
-spec:
-  ingressClassName: nginx
-  rules:
-    - host: spring-petclinic.{{ .Values.namespace }}.{{ .Values.hostname.grafanaServer.name }}.com
-      http:
-        paths:
-          - path: /
-            pathType: Prefix
-            backend:
-              service:
-                name: {{ .Values.hostname.grafanaServer.name }}
-                port:
-                  number: 3030
