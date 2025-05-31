@@ -26,6 +26,9 @@ images:
   tracingServer:
     repository: registry.caotienminh.software/springcommunity/openzipkin_zipkin
     tag: latest
+  prometheusServer:
+    repository: registry.caotienminh.software/springcommunity/prometheus
+    tag: latest
 
 imagePullSecrets:
   name: regcred
@@ -55,3 +58,5 @@ hostname:
     name: config-server
   tracingServer: 
     name: tracing-server
+  prometheusServer:
+    name: prometheus-server
