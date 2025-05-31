@@ -16,29 +16,6 @@ spec:
       labels:
         app: {{ .Values.hostname.tracingServer.name }}
     spec:
-      initContainers:
-        - name: wait-for-config-server
-          image: darthcabs/tiny-tools:1
-          args:
-            - /bin/bash
-            - -c
-            - >
-              set -x;
-              while [[ "$(curl -s -o /dev/null -w ''%{http_code}'' {{ .Values.config.configServer.url }})" != "200" ]]; do
-                echo '.'
-                sleep 15;
-              done
-        - name: wait-for-discovery-server
-          image: darthcabs/tiny-tools:1
-          args:
-            - /bin/bash
-            - -c
-            - >
-              set -x;
-              while [[ "$(curl -s -o /dev/null -w ''%{http_code}'' {{ .Values.config.discoveryServer.url }})" != "200" ]]; do
-                echo '.'
-                sleep 15;
-              done
       containers:
         - name: {{ .Values.hostname.tracingServer.name }}
           image: "{{ .Values.images.tracingServer.repository }}:{{ .Values.images.tracingServer.tag }}"
