@@ -1,31 +1,34 @@
 images:
   genaiService:
-    repository: tienminhktvn2/spring-petclinic-genai-service
+    repository: registry.caotienminh.software/springcommunity/spring-petclinic-genai-service
     tag: latest
   adminServer:
-    repository: tienminhktvn2/spring-petclinic-admin-server
+    repository: registry.caotienminh.software/springcommunity/spring-petclinic-admin-server
     tag: latest
   customersService:
-    repository: tienminhktvn2/spring-petclinic-customers-service
+    repository: registry.caotienminh.software/springcommunity/spring-petclinic-customers-service
     tag: latest
   vetsService:
-    repository: tienminhktvn2/spring-petclinic-vets-service
+    repository: registry.caotienminh.software/springcommunity/spring-petclinic-vets-service
     tag: latest
   visitsService:
-    repository: tienminhktvn2/spring-petclinic-visits-service
+    repository: registry.caotienminh.software/springcommunity/spring-petclinic-visits-service
     tag: latest
   apiGateway: 
-    repository: tienminhktvn2/spring-petclinic-api-gateway
+    repository: registry.caotienminh.software/springcommunity/spring-petclinic-api-gateway
     tag: latest
   discoveryServer:
-    repository: tienminhktvn2/spring-petclinic-discovery-server
+    repository: registry.caotienminh.software/springcommunity/spring-petclinic-discovery-server
     tag: latest
   configServer: 
-    repository: tienminhktvn2/spring-petclinic-config-server
+    repository: registry.caotienminh.software/springcommunity/spring-petclinic-config-server
+    tag: latest
+  tracingServer:
+    repository: registry.caotienminh.software/springcommunity/openzipkin_zipkin
     tag: latest
 
 imagePullSecrets:
-  name: dockerhub-cred
+  name: regcred
 
 config:
   discoveryServer:

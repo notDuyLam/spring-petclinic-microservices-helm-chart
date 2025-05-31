@@ -41,7 +41,7 @@ spec:
               done
       containers:
         - name: {{ .Values.hostname.tracingServer.name }}
-          image: openzipkin/zipkin
+          image: "{{ .Values.images.tracingServer.repository }}:{{ .Values.images.tracingServer.tag }}"
           imagePullPolicy: Always
           ports:
             - containerPort: 9411
