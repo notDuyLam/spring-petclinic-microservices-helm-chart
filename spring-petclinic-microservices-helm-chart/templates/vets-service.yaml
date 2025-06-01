@@ -52,3 +52,17 @@ spec:
               value: "{{ .Values.config.configServer.url }}"
             - name: EUREKA_INSTANCE_HOSTNAME
               value: "{{ .Values.hostname.vetsService.name }}"
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ .Values.hostname.vetsService.name }}
+  namespace: {{ .Values.namespace }}
+spec:
+  selector:
+    app: {{ .Values.hostname.vetsService.name }}
+  ports:
+    - name: {{ .Values.hostname.vetsService.name }}-port
+      protocol: TCP
+      port: 8083
+      targetPort: 8083
