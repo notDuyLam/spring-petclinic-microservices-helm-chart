@@ -26,12 +26,6 @@ images:
   tracingServer:
     repository: registry.caotienminh.software/springcommunity/zipkin-server
     tag: latest
-  prometheusServer:
-    repository: registry.caotienminh.software/springcommunity/prometheus-server
-    tag: latest
-  grafanaServer:
-    repository: registry.caotienminh.software/springcommunity/grafana-server
-    tag: latest
 
 imagePullSecrets:
   name: regcred
@@ -61,7 +55,3 @@ hostname:
     name: config-server
   tracingServer: 
     name: tracing-server
-  prometheusServer:
-    name: prometheus-server
-  grafanaServer:
-    name: grafana-server
