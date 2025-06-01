@@ -40,23 +40,3 @@ spec:
       protocol: TCP
       port: 9411
       targetPort: 9411
----
-apiVersion: networking.k8s.io/v1
-kind: Ingress
-metadata:
-  annotations: {}
-  name: spring-petclinic.{{ .Values.namespace }}.{{ .Values.hostname.tracingServer.name }}.com
-  namespace: {{ .Values.namespace }}
-spec:
-  ingressClassName: nginx
-  rules:
-    - host: spring-petclinic.{{ .Values.namespace }}.{{ .Values.hostname.tracingServer.name }}.com
-      http:
-        paths:
-          - path: /
-            pathType: Prefix
-            backend:
-              service:
-                name: {{ .Values.hostname.tracingServer.name }}
-                port:
-                  number: 9411
