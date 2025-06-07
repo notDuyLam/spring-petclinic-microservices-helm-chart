@@ -5,10 +5,10 @@ metadata:
   namespace: argocd
   annotations:
     argocd-image-updater.argoproj.io/image-list: |
-      customersService=tienminhktvn2/spring-petclinic-customers-service:dev,
-      vetsService=tienminhktvn2/spring-petclinic-vets-service:dev,
-      visitsService=tienminhktvn2/spring-petclinic-visits-service:dev,
-      apiGateway=tienminhktvn2/spring-petclinic-api-gateway:dev
+      customersService=registry.caotienminh.software/springcommunity/spring-petclinic-customers-service:dev,
+      vetsService=registry.caotienminh.software/springcommunity/spring-petclinic-vets-service:dev,
+      visitsService=registry.caotienminh.software/springcommunity/spring-petclinic-visits-service:dev,
+      apiGateway=registry.caotienminh.software/springcommunity/spring-petclinic-api-gateway:dev
 
     argocd-image-updater.argoproj.io/customersService.update-strategy: digest
     argocd-image-updater.argoproj.io/vetsService.update-strategy: digest
