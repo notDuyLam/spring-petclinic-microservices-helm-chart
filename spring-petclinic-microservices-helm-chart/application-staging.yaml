@@ -19,7 +19,7 @@ spec:
     automated:
       prune: true
       selfHeal: true
-      prunePropagationPolicy: Foreground
+      # prunePropagationPolicy: Foreground
     syncOptions:
       - CreateNamespace=true
       - PruneLast=true
