@@ -5,16 +5,15 @@ metadata:
   namespace: argocd
   annotations:
     argocd-image-updater.argoproj.io/image-list: |
-      customersService=registry.caotienminh.software/springcommunity/spring-petclinic-customers-service:dev,
-      vetsService=registry.caotienminh.software/springcommunity/spring-petclinic-vets-service:dev,
-      visitsService=registry.caotienminh.software/springcommunity/spring-petclinic-visits-service:dev,
-      apiGateway=registry.caotienminh.software/springcommunity/spring-petclinic-api-gateway:dev
-
+      customersService=lam1312200/spring-petclinic-customers-service:dev,
+      vetsService=lam1312200/spring-petclinic-vets-service:dev,
+      visitsService=lam1312200/spring-petclinic-visits-service:dev,
+      apiGateway=lam1312200/spring-petclinic-api-gateway:dev
     argocd-image-updater.argoproj.io/customersService.update-strategy: digest
     argocd-image-updater.argoproj.io/vetsService.update-strategy: digest
     argocd-image-updater.argoproj.io/visitsService.update-strategy: digest
     argocd-image-updater.argoproj.io/apiGateway.update-strategy: digest
-    
+
     argocd-image-updater.argoproj.io/customersService.helm.image-name: images.customersService.repository
     argocd-image-updater.argoproj.io/customersService.helm.image-tag: images.customersService.tag
 
@@ -29,7 +28,7 @@ metadata:
 spec:
   project: default
   source:
-    repoURL: https://github.com/22120207/spring-petclinic-microservices-helm-chart
+    repoURL: https://github.com/notDuyLam/spring-petclinic-microservices-helm-chart
     targetRevision: HEAD
     path: spring-petclinic-microservices-helm-chart
     helm:

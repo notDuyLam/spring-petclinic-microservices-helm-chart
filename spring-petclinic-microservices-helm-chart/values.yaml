@@ -1,30 +1,30 @@
 images:
   genaiService:
-    repository: registry.caotienminh.software/springcommunity/spring-petclinic-genai-service
+    repository: lam1312200/spring-petclinic-genai-service
     tag: latest
   adminServer:
-    repository: registry.caotienminh.software/springcommunity/spring-petclinic-admin-server
+    repository: lam1312200/spring-petclinic-admin-server
     tag: latest
   customersService:
-    repository: registry.caotienminh.software/springcommunity/spring-petclinic-customers-service
+    repository: lam1312200/spring-petclinic-customers-service
     tag: latest
   vetsService:
-    repository: registry.caotienminh.software/springcommunity/spring-petclinic-vets-service
+    repository: lam1312200/spring-petclinic-vets-service
     tag: latest
   visitsService:
-    repository: registry.caotienminh.software/springcommunity/spring-petclinic-visits-service
+    repository: lam1312200/spring-petclinic-visits-service
     tag: latest
-  apiGateway: 
-    repository: registry.caotienminh.software/springcommunity/spring-petclinic-api-gateway
+  apiGateway:
+    repository: lam1312200/spring-petclinic-api-gateway
     tag: latest
   discoveryServer:
-    repository: registry.caotienminh.software/springcommunity/spring-petclinic-discovery-server
+    repository: lam1312200/spring-petclinic-discovery-server
     tag: latest
-  configServer: 
-    repository: registry.caotienminh.software/springcommunity/spring-petclinic-config-server
+  configServer:
+    repository: lam1312200/spring-petclinic-config-server
     tag: latest
   tracingServer:
-    repository: registry.caotienminh.software/springcommunity/zipkin-server
+    repository: lam1312200/zipkin-server
     tag: latest
 
 imagePullSecrets:
@@ -33,7 +33,7 @@ imagePullSecrets:
 config:
   discoveryServer:
     url: http://discovery-server:8761
-  configServer: 
+  configServer:
     url: http://config-server:8888
 
 hostname:
@@ -47,11 +47,11 @@ hostname:
     name: vets-service
   visitsService:
     name: visits-service
-  apiGateway: 
+  apiGateway:
     name: api-gateway
   discoveryServer:
     name: discovery-server
-  configServer: 
+  configServer:
     name: config-server
-  tracingServer: 
+  tracingServer:
     name: tracing-server

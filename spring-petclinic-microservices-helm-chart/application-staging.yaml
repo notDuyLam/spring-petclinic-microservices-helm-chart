@@ -6,7 +6,7 @@ metadata:
 spec:
   project: default
   source:
-    repoURL: https://github.com/22120207/spring-petclinic-microservices-helm-chart
+    repoURL: https://github.com/notDuyLam/spring-petclinic-microservices-helm-chart
     targetRevision: HEAD
     path: spring-petclinic-microservices-helm-chart
     helm:
